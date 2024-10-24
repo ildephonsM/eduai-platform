@@ -1,0 +1,43 @@
+/* SlideShow.css */
+@keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .animated-background {
+    background: linear-gradient(270deg, #4c6ef5, #6f42c1, #d63384);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+  }
+  
+  .arrow-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Adjust width */
+    height: 50px; /* Adjust height */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  }
+  
+  .arrow-button:hover {
+    background-color: rgba(255, 255, 255, 1); /* Fully opaque on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
+  }
+  
+  .arrow-icon {
+    color: #1E3A8A; /* Custom color for the arrows */
+    width: 24px; /* Adjust icon size */
+    height: 24px; /* Adjust icon size */
+  }
+  

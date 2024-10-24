@@ -1,0 +1,31 @@
+Setting up the project
+
+npx create-react-app eduai-platform
+cd eduai-platform
+npm install
+
+Install Dependencies
+npm install lucide-react
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+Configure Tailwind CSS 
+Update tailwind.config.js
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+
+Add Tailwind to your CSS:
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities
+
+pip install Flask pyodbc flask-cors
+npm install bcryptjs
+
