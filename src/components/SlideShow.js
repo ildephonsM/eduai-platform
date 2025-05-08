@@ -36,6 +36,7 @@ const SlideShow = ({ slides }) => {
                 aria-label="Next Slide"
               >
                 <ArrowRight className="arrow-icon" />
+                
               </Button>
             </div>
           </div>

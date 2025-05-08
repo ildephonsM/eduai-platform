@@ -3,7 +3,7 @@ import Button from '../ui/button';
 import Input from '../ui/input';
 import Flag from 'react-world-flags';
 import axios from 'axios';
-import bcrypt from 'bcryptjs'; // Import bcrypt for hashing
+import bcrypt from 'bcryptjs';
 
 const countryOptions = [
   { code: 'ZA', dialCode: '+27', label: 'South Africa' },
@@ -13,64 +13,162 @@ const countryOptions = [
 ];
 
 const RegisterModal = ({ setLoggedIn, setIsRegisterModal }) => {
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [email, setEmail] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState(countryOptions[0]); // Default country
-  const [cellphone, setCellphone] = useState('');
-  const [password, setPassword] = useState('');
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    cellphone: '',
+    password: '',
+    selectedCountry: countryOptions[0],
+  });
+
+  // UI state
   const [errors, setErrors] = useState({});
-  const [dropdownOpen, setDropdownOpen] = useState(false); // For toggling dropdown
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const validateName = (value) => /^[A-Za-z]+$/.test(value);
-  const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  const validateCellphone = (value) => /^\d{9}$/.test(value);
+  // Validation functions
+  const validators = {
+    name: (value) => {
+      if (!value.trim()) return 'Name is required';
+      if (!/^[A-Za-z]+$/.test(value)) return 'Name must contain only letters';
+      return '';
+    },
+    surname: (value) => {
+      if (!value.trim()) return 'Surname is required';
+      if (!/^[A-Za-z]+$/.test(value)) return 'Surname must contain only letters';
+      return '';
+    },
+    email: (value) => {
+      if (!value.trim()) return 'Email is required';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email format';
+      return '';
+    },
+    cellphone: (value) => {
+      if (!value.trim()) return 'Cellphone is required';
+      if (!/^\d{9}$/.test(value)) return 'Cellphone must contain exactly 9 digits';
+      return '';
+    },
+    password: (value) => {
+      if (!value) return 'Password is required';
+      if (value.length < 8) return 'Password must be at least 8 characters';
+      return '';
+    },
+  };
 
-/*   const handleBlur = (field, value) => {
-    const newErrors = { ...errors };
+  // Handle input changes
+  const handleChange = (field, value) => {
+    console.log(`Changing ${field} to ${value}`); // Add log here
 
-    if (field === 'name' && !validateName(value)) {
-      newErrors.name = 'Name must contain only letters';
-    } else if (field === 'surname' && !validateName(value)) {
-      newErrors.surname = 'Surname must contain only letters';
-    } else if (field === 'email' && !validateEmail(value)) {
-      newErrors.email = 'Invalid email format';
-    } else if (field === 'cellphone' && !validateCellphone(value)) {
-      newErrors.cellphone = 'Cellphone must contain exactly 9 digits';
-    } else {
-      delete newErrors[field];
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: '',
+      }));
     }
+  };
 
+  // Handle input blur (validate on blur)
+  const handleBlur = (field) => {
+    const value = formData[field];
+    const validator = validators[field];
+
+    if (validator) {
+      const error = validator(value);
+      setErrors((prev) => ({
+        ...prev,
+        [field]: error,
+      }));
+    }
+  };
+
+  // Validate all fields
+  const validateForm = () => {
+    const newErrors = {};
+    Object.keys(validators).forEach((field) => {
+      const value = formData[field];
+      const error = validators[field](value);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
     setErrors(newErrors);
-  }; */
+    return Object.keys(newErrors).length === 0;
+  };
 
+  // Handle form submission
   const handleSubmit = async () => {
-    if (Object.keys(errors).length === 0) {
-        try {
-            // Log registration data
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const registrationData = {
-                Name: name,
-                Surname: surname,
-                Email: email,
-                Country: selectedCountry.label,
-                Cellphone: cellphone,
-                CountryCode: selectedCountry.code,
-                Password: hashedPassword,
-            };
+    try {
+      setIsSubmitting(true);
+      setSubmitError('');
 
-            console.log('Sending registration data:', registrationData); // Log data
+      // Log pre-submission data
+      console.log('Current Form Data Before Validation:', formData);
 
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, registrationData);
+      // Validate all fields before submission
+      /*
+      if (!validateForm()) {
+        console.log('Validation failed:', errors);
+        setIsSubmitting(false);
+        return;
+      }
+      */
 
-            if (response.status === 201) {
-                setLoggedIn(true);
-                setIsRegisterModal(false);
-            }
-        } catch (error) {
-            console.error('Registration failed:', error.response?.data || error.message);
-            alert('Registration failed: ' + (error.response?.data?.error || 'Unknown error'));
+      // Hash password
+      const hashedPassword = await bcrypt.hash(formData.password, 10);
+
+      // Prepare registration data
+      const registrationData = {
+        Name: formData.name.trim(),
+        Surname: formData.surname.trim(),
+        Email: formData.email.trim().toLowerCase(),
+        Country: formData.selectedCountry.label,
+        Cellphone: formData.cellphone.trim(),
+        CountryCode: formData.selectedCountry.code,
+        Password: hashedPassword,
+      };
+
+      // Log registration data (without password)
+      console.log('Sending registration data:', {
+        ...registrationData,
+        Password: '[REDACTED]',
+      });
+
+      // Make API request
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/register`,
+        registrationData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
+      );
+
+      if (response.status === 201) {
+        setLoggedIn(true);
+        setIsRegisterModal(false);
+      }
+    } catch (error) {
+      console.error('Registration error:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+
+      setSubmitError(
+        error.response?.data?.error || 'Registration failed. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -79,43 +177,47 @@ const RegisterModal = ({ setLoggedIn, setIsRegisterModal }) => {
       <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
         <h3 className="text-lg font-bold mb-4">Register</h3>
 
+        {/* Name Input */}
         <Input
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          //onBlur={() => handleBlur('name', name)}
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          onBlur={() => handleBlur('name')}
           className={`mb-2 ${errors.name ? 'border-red-500' : ''}`}
         />
         {errors.name && <p className="text-red-500 text-sm mb-2">{errors.name}</p>}
 
+        {/* Surname Input */}
         <Input
           placeholder="Surname"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          //onBlur={() => handleBlur('surname', surname)}
+          value={formData.surname}
+          onChange={(e) => handleChange('surname', e.target.value)}
+          onBlur={() => handleBlur('surname')}
           className={`mb-2 ${errors.surname ? 'border-red-500' : ''}`}
         />
         {errors.surname && <p className="text-red-500 text-sm mb-2">{errors.surname}</p>}
 
+        {/* Email Input */}
         <Input
           placeholder="Email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          //onBlur={() => handleBlur('email', email)}
+          value={formData.email}
+          onChange={(e) => handleChange('email', e.target.value)}
+          onBlur={() => handleBlur('email')}
           className={`mb-2 ${errors.email ? 'border-red-500' : ''}`}
         />
         {errors.email && <p className="text-red-500 text-sm mb-2">{errors.email}</p>}
 
-        {/* Custom Country Code Dropdown */}
+        {/* Country Dropdown */}
         <div className="relative mb-4">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="p-2 border rounded w-full flex items-center justify-between"
+            type="button"
           >
             <div className="flex items-center">
-              <Flag code={selectedCountry.code} style={{ width: '20px', height: '15px' }} />
-              <span className="ml-2">{selectedCountry.dialCode}</span>
+              <Flag code={formData.selectedCountry.code} style={{ width: '20px', height: '15px' }} />
+              <span className="ml-2">{formData.selectedCountry.dialCode}</span>
             </div>
             <span>{dropdownOpen ? '▲' : '▼'}</span>
           </button>
@@ -126,7 +228,7 @@ const RegisterModal = ({ setLoggedIn, setIsRegisterModal }) => {
                 <div
                   key={option.code}
                   onClick={() => {
-                    setSelectedCountry(option);
+                    handleChange('selectedCountry', option);
                     setDropdownOpen(false);
                   }}
                   className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
@@ -139,37 +241,42 @@ const RegisterModal = ({ setLoggedIn, setIsRegisterModal }) => {
           )}
         </div>
 
+        {/* Cellphone Input */}
         <Input
           placeholder="Cellphone (9 digits)"
-          value={cellphone}
-          onChange={(e) => setCellphone(e.target.value)}
-          //onBlur={() => handleBlur('cellphone', cellphone)}
-          className={`w-full mb-4 ${errors.cellphone ? 'border-red-500' : ''}`}
+          value={formData.cellphone}
+          onChange={(e) => handleChange('cellphone', e.target.value)}
+          onBlur={() => handleBlur('cellphone')}
+          className={`w-full mb-2 ${errors.cellphone ? 'border-red-500' : ''}`}
         />
         {errors.cellphone && <p className="text-red-500 text-sm mb-2">{errors.cellphone}</p>}
 
+        {/* Password Input */}
         <Input
-          placeholder="Password"
+          placeholder="Password (min 8 characters)"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mb-6"
+          value={formData.password}
+          onChange={(e) => handleChange('password', e.target.value)}
+          onBlur={() => handleBlur('password')}
+          className={`mb-4 ${errors.password ? 'border-red-500' : ''}`}
         />
+        {errors.password && <p className="text-red-500 text-sm mb-2">{errors.password}</p>}
 
-        <div className="flex justify-between">
-          <Button
-            onClick={handleSubmit}
-            className="bg-blue-500 text-white hover:bg-blue-600"
-          >
-            Submit
-          </Button>
-          <Button
-            onClick={() => setIsRegisterModal(false)}
-            className="bg-gray-500 text-white hover:bg-gray-600"
-          >
-            Cancel
-          </Button>
-        </div>
+        {/* Submit Error Message */}
+        {submitError && <p className="text-red-500 text-sm mb-2">{submitError}</p>}
+
+        {/* Submit Button */}
+        <Button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className={`w-full ${isSubmitting ? 'bg-gray-500' : 'bg-blue-500'}`}
+        >
+          {isSubmitting ? 'Registering...' : 'Register'}
+        </Button>
+
+        <button onClick={() => setIsRegisterModal(false)} className="text-sm text-gray-500 mt-4">
+          Cancel
+        </button>
       </div>
     </div>
   );

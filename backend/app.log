@@ -1,0 +1,85 @@
+2024-10-30 12:19:03,269 - INFO - [_internal.py:187] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.30.1.76:5000
+2024-10-30 12:19:03,270 - INFO - [_internal.py:187] - [33mPress CTRL+C to quit[0m
+2024-10-30 12:31:02,883 - INFO - [_internal.py:187] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.30.1.76:5000
+2024-10-30 12:31:02,883 - INFO - [_internal.py:187] - [33mPress CTRL+C to quit[0m
+2024-10-30 12:41:35,088 - INFO - [_internal.py:187] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.30.1.76:5000
+2024-10-30 12:41:35,090 - INFO - [_internal.py:187] - [33mPress CTRL+C to quit[0m
+2024-10-30 12:41:43,130 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:41:43] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:41:43,640 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:41:43,670 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:41:43,672 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:41:43] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:41:57,907 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:41:57] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:41:58,222 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:41:58,226 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:41:58,227 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:41:58] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:44:05,565 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:44:05] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:44:05,846 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:44:05,850 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:44:05,852 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:44:05] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:44:26,841 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:44:26] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:44:27,157 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:44:27,161 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:44:27,162 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:44:27] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:47:33,600 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:47:33] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:47:33,882 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:47:33,887 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:47:33,888 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:47:33] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:47:35,144 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:47:35,148 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:47:35,149 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:47:35] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:47:36,270 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:47:36,274 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:47:36,277 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:47:36] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:55:52,369 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:55:52] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:55:52,666 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:55:52,671 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:55:52,672 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:55:52] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:56:01,329 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:01] "OPTIONS /login HTTP/1.1" 200 -
+2024-10-30 12:56:01,579 - INFO - [app.py:209] - Received login attempt for email: No email provided
+2024-10-30 12:56:01,582 - ERROR - [app.py:244] - Unexpected error during login: 'Email'
+Traceback (most recent call last):
+  File "C:\Sever\Okuhle\eduai-platform\backend\app.py", line 216, in login
+KeyError: 'Email'
+2024-10-30 12:56:01,607 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:01] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2024-10-30 12:56:02,009 - INFO - [app.py:209] - Received login attempt for email: No email provided
+2024-10-30 12:56:02,009 - ERROR - [app.py:244] - Unexpected error during login: 'Email'
+Traceback (most recent call last):
+  File "C:\Sever\Okuhle\eduai-platform\backend\app.py", line 216, in login
+KeyError: 'Email'
+2024-10-30 12:56:02,010 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:02] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2024-10-30 12:56:03,139 - INFO - [app.py:209] - Received login attempt for email: No email provided
+2024-10-30 12:56:03,140 - ERROR - [app.py:244] - Unexpected error during login: 'Email'
+Traceback (most recent call last):
+  File "C:\Sever\Okuhle\eduai-platform\backend\app.py", line 216, in login
+KeyError: 'Email'
+2024-10-30 12:56:03,142 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:03] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2024-10-30 12:56:03,600 - INFO - [app.py:209] - Received login attempt for email: No email provided
+2024-10-30 12:56:03,600 - ERROR - [app.py:244] - Unexpected error during login: 'Email'
+Traceback (most recent call last):
+  File "C:\Sever\Okuhle\eduai-platform\backend\app.py", line 216, in login
+KeyError: 'Email'
+2024-10-30 12:56:03,602 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:03] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2024-10-30 12:56:16,157 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:16] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:56:16,422 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:56:16,427 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:56:16,435 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:16] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:56:23,377 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:23] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:56:23,646 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:56:23,649 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:56:23,652 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:23] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:56:25,888 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:56:25,894 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:56:25,896 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:56:25] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
+2024-10-30 12:58:04,858 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:58:04] "OPTIONS /register HTTP/1.1" 200 -
+2024-10-30 12:58:05,131 - INFO - [app.py:133] - Received registration request for email: 
+2024-10-30 12:58:05,135 - WARNING - [app.py:152] - Registration failed: Email already exists - 
+2024-10-30 12:58:05,136 - INFO - [_internal.py:187] - 127.0.0.1 - - [30/Oct/2024 12:58:05] "[31m[1mPOST /register HTTP/1.1[0m" 409 -
